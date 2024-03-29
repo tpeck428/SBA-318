@@ -6,6 +6,14 @@ const PORT = 4000;
 const users = require('./data/users');
 const items = require('./data/inventory');
 
+
+//Middleware
+app.use(express.json());
+// const usersRouter = require('./routes/users');
+// app.use("/users", usersRouter);
+
+
+
 //Template engine
 const fs = require('fs');
 
@@ -18,15 +26,18 @@ app.engine('dice', (filePath, options, callback) => {
     fs.readFile(filePath, (e, content) => {
         if (e) return callback (e);
 
-    })
+    });
 })
 
-// //MIDDLEWARE
-// app.use("/dice/users", users);
-// app.use("/dice/inventory", items);
+// Data MIDDLEWARE
+// app.use("/api/users", users);
+app.use("/api/inventory", items);
 
-//ROUTES
-// const userRouter = require
+
+//Route MIDDLEWARE
+// app.use("/", router);
+// app.use("/users", usersRouter);
+
 
 
 //Root Route
@@ -35,10 +46,11 @@ app.get("/", (req, res) => {
 })
 
 //Routes
-// app.get('/dice/users'), (req, res)=> {
+
+// app.route("/api/users")
+//     .get((req, res) => {
 //     res.json(users);
-    
-// }
+// })
 
 
 
