@@ -9,8 +9,8 @@ const items = require('./data/inventory');
 
 //Middleware
 app.use(express.json());
-// const usersRouter = require('./routes/users');
-// app.use("/users", usersRouter);
+const usersRouter = require('./routes/users');
+
 
 
 
@@ -29,14 +29,10 @@ app.engine('dice', (filePath, options, callback) => {
     });
 })
 
-// Data MIDDLEWARE
-// app.use("/api/users", users);
-app.use("/api/inventory", items);
 
 
 //Route MIDDLEWARE
-// app.use("/", router);
-// app.use("/users", usersRouter);
+app.use("/users", usersRouter);
 
 
 
@@ -47,10 +43,12 @@ app.get("/", (req, res) => {
 
 //Routes
 
-// app.route("/api/users")
-//     .get((req, res) => {
-//     res.json(users);
-// })
+// app.route("/users/:id")
+//     .get((req, res, next) => {
+//     const user = users.find((u) => u.id == req.params.id)
+//     if (user) res.json(user);
+//     else next();
+// })  
 
 
 
