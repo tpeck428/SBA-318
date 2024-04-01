@@ -42,13 +42,31 @@ app.get("/", (req, res) => {
 })
 
 //Routes
+    // app.use((req, res, next) => {
+    //     next(error(404, "Resource Not Found"));
+    //   });
 
-// app.route("/users/:id")
-//     .get((req, res, next) => {
-//     const user = users.find((u) => u.id == req.params.id)
-//     if (user) res.json(user);
-//     else next();
-// })  
+app
+    .route("/users")
+    .get((req, res,) => {
+        res.json(users);
+})
+    .post((req, res) => {
+        if (req.body.name && req.body.email && req.body.title) {
+            if (users.find((e) => e.email == req.body.email )) {
+                res.json({error: "This email has been used"});
+                return;
+            }
+            const user = {
+                id: users[users.length - 1].id + 1,
+                name: req.body.name,
+                email: req.body.email,
+                title: req.body.title,
+            };
+            users.push(user);
+            res.json(users[users.length - 1]);
+        } else res.json({error: "Insufficient Data"})
+    })
 
 
 
