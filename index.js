@@ -4,12 +4,13 @@ const PORT = 4000;
 
 //Importing data
 const users = require('./data/users');
-const items = require('./data/inventory');
+const orders = require('./data/orders');
 
 
 //Middleware
 app.use(express.json());
 const usersRouter = require('./routes/users');
+const ordersRouter = require('./routes/orders');
 
 
 
@@ -35,6 +36,7 @@ app.set('view engine', 'dice')
 
 //Route MIDDLEWARE
 app.use("/users", usersRouter);
+app.use("/orders", ordersRouter);
 
 
 
@@ -45,7 +47,7 @@ app.get("/", (req, res) => {
         title: "Gobblin' Dice",
         content: "Please use our form to introduce yourself and register your account!"
     }
-    res.render('welcome', data)
+    res.render('welcome', data) //not rendering data
 })
 
 //Routes
@@ -74,17 +76,7 @@ app
             res.json(users[users.length - 1]);
         } else res.json({error: "Insufficient Data"})
     })
-    // .delete((req, res, next) => {
-    //     const userDelete = users.find((u, i) => {
-    //         if (u.id == req.params.id) {
-    //             users.splice(i, 1);
-    //             return true;
-    //         }
-    //     });
-
-    //     if (userDelete) res.json(userDelete);
-    //     else next();
-    // })
+   
 
 
 

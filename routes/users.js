@@ -49,7 +49,7 @@ router
         });
         if (user) res.json(user);
     })
-    //non working Delete -- 
+
     .delete((req, res, next) => {
         const userDelete = users.find((u, i) => {
             if (u.id == req.params.id) {
@@ -62,8 +62,6 @@ router
         else next();
     })
     
-
-
 
 
 
