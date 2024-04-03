@@ -74,17 +74,17 @@ app
             res.json(users[users.length - 1]);
         } else res.json({error: "Insufficient Data"})
     })
-    .delete((req, res, next) => {
-        const userDelete = users.find((u, i) => {
-            if (u.id == req.params.id) {
-                users.splice(i, 1);
-                return true;
-            }
-        });
+    // .delete((req, res, next) => {
+    //     const userDelete = users.find((u, i) => {
+    //         if (u.id == req.params.id) {
+    //             users.splice(i, 1);
+    //             return true;
+    //         }
+    //     });
 
-        if (userDelete) res.json(userDelete);
-        else next();
-    })
+    //     if (userDelete) res.json(userDelete);
+    //     else next();
+    // })
 
 
 
