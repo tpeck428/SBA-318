@@ -17,17 +17,19 @@ const usersRouter = require('./routes/users');
 //Template engine
 const fs = require('fs');
 
-//Set views and view engine
-app.set('views', './views')
-app.set('view engine', 'dice')
 
 //Define template engine --come back to this
 app.engine('dice', (filePath, options, callback) => {
-    fs.readFile(filePath, (e, content) => {
+    fs.readFile(filePath, (e, userForm) => {
         if (e) return callback (e);
-
+        const rendered = userForm.toString()
+        return callback(null, rendered)
     });
 })
+
+//Set views and view engine
+app.set('views', './views')
+app.set('view engine', 'dice')
 
 
 
@@ -38,7 +40,12 @@ app.use("/users", usersRouter);
 
 //Root Route
 app.get("/", (req, res) => {
-    res.send('Can you see me?')
+    // res.send('Can you see me?')
+    const data = {
+        title: "Gobblin' Dice",
+        content: "Please use our form to introduce yourself and register your account!"
+    }
+    res.render('welcome', data)
 })
 
 //Routes
@@ -66,6 +73,17 @@ app
             users.push(user);
             res.json(users[users.length - 1]);
         } else res.json({error: "Insufficient Data"})
+    })
+    .delete((req, res, next) => {
+        const userDelete = users.find((u, i) => {
+            if (u.id == req.params.id) {
+                users.splice(i, 1);
+                return true;
+            }
+        });
+
+        if (userDelete) res.json(userDelete);
+        else next();
     })
 
 

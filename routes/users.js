@@ -8,17 +8,8 @@ router
     .get((req, res) => {
         res.json(users);
     })
-
-//Pulls Individual IDs
-router
-    .route("/:id")
-    .get((req, res) => {
-        const user = users.find((u) => u.id == req.params.id);
-        if (user) {
-            res.json(user);
-        } else res.status(404).json({error: "User not found"})
-    })
     .post((req, res) => {
+        // console.log(req.body)
         if (req.body.name && req.body.email && req.body.title) {
             if (users.find((e) => e.email == req.body.email )) {
                 res.json({error: "This email has been used"});
@@ -34,8 +25,31 @@ router
             res.json(users[users.length - 1]);
         } else res.json({error: "Insufficient Data"})
     })
+    .delete((req, res, next) => {
+        const userDelete = users.find((u, i) => {
+            if (u.id == req.params.id) {
+                users.splice(i, 1);
+                return true;
+            }
+        });
+
+        if (userDelete) res.json(userDelete);
+        else next();
+    })
+    
+
+//Pulls Individual IDs
+router
+    .route("/:id")
+    .get((req, res) => {
+        const user = users.find((u) => u.id == req.params.id);
+        if (user) {
+            res.json(user);
+        } else res.status(404).json({error: "User not found"})
+    })
     //Using PATCH to make changes to users -- come back to this
     // .patch((req, res) => {
+    //     console.log('testing patch')
     //     const user = users.find((u, i) => {
     //         if (u.id == req.params.id) {
     //             for (const key in req.body) {
@@ -45,8 +59,9 @@ router
     //         }
     //     });
     //     if (user) res.json(user);
-    //     else next();
     // })
+    
+
 
 
 
