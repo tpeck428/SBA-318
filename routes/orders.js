@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const items = require('../data/orders');
+const orders = require('../data/orders');
 
 
 //Base user page routes 

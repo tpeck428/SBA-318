@@ -36,7 +36,7 @@ router
             res.json(user);
         } else res.status(404).json({error: "User not found"})
     })
-    //Using PATCH to make changes to users -- come back to this
+    //Using PATCH to make changes to users 
     .patch((req, res) => {
         console.log('testing patch')
         const user = users.find((u, i) => {

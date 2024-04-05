@@ -9,8 +9,11 @@ const orders = require('./data/orders');
 
 //Middleware
 app.use(express.json());
+// app.use(express.static('./style.css'));
+
 const usersRouter = require('./routes/users');
 const ordersRouter = require('./routes/orders');
+const itemsRouter = require('./routes/inventory');
 
 
 
@@ -19,11 +22,12 @@ const ordersRouter = require('./routes/orders');
 const fs = require('fs');
 
 
-//Define template engine --come back to this
+//Define template engine 
 app.engine('dice', (filePath, options, callback) => {
     fs.readFile(filePath, (e, userForm) => {
         if (e) return callback (e);
-        const rendered = userForm.toString()
+        const rendered = userForm
+        .toString()
         return callback(null, rendered)
     });
 })
@@ -43,17 +47,14 @@ app.use("/orders", ordersRouter);
 //Root Route
 app.get("/", (req, res) => {
     // res.send('Can you see me?')
-    const data = {
+    const options = {
         title: "Gobblin' Dice",
         content: "Please use our form to introduce yourself and register your account!"
     }
-    res.render('welcome', data) //not rendering data
+    res.render('users', options) //not rendering data
 })
 
-//Routes
-    // app.use((req, res, next) => {
-    //     next(error(404, "Resource Not Found"));
-    //   });
+//Users Routes
 
 app
     .route("/users")
@@ -75,9 +76,15 @@ app
             users.push(user);
             res.json(users[users.length - 1]);
         } else res.json({error: "Insufficient Data"})
-    })
+    });
    
 
+//Orders Routes
+app
+    .route("/orders")
+    .get((req, res,) => {
+        res.json(orders);
+})
 
 
 app.listen(PORT, () => {

@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
-    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
     <div>
         <h2>Welcome Fellow Dice Goblin!</h2>
            <form action="api/users" method="POST" id="submit-form">
         <label for="first-name">First name:</label>
-        <input type="text" id="fname"><br>
-        <label for="lastname">Last name:</label>
+        <input type="text" id="first-name"><br>
+        <label for="last-name">Last name:</label>
         <input type="text" id="last-name"><br>
 
         <label for="title">Title:</label>
